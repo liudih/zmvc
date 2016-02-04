@@ -84,6 +84,8 @@ public class HelloController {
 		//將數據添加到視圖數據容器中
 		model.addAttribute("word0",word0);
 		model.addAttribute("word1",word1);
+		List<User> ulist = userService.getAllUsers();
+		model.addAttribute("list",ulist);
 		return "hello";
 	}
 
