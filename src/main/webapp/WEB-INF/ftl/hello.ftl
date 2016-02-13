@@ -10,6 +10,10 @@
 
 <p>
 <#-- 使用FTL指令 --> 
+<#if list?? >
+<p>
+长度：${list?size}
+<p>
 <#list list?sort_by("age")?reverse as user>
 第${user_index+1}个用户
   用户名：${user.userName}
@@ -17,6 +21,7 @@
   年  龄: ${user.age}
 <br/>
 </#list>
+</#if>
 
 
 <div id="a"> meeeeee== </div>

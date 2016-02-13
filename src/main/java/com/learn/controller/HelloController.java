@@ -1,10 +1,11 @@
 package com.learn.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,15 +31,23 @@ public class HelloController {
 	@Resource
 	private UserMapper userMapper;
 	
+	@Resource(name="amqpTemplate")
+    AmqpTemplate amqpTemplate;
+	
 	@RequestMapping("/hello")
 	public ModelAndView hello() {
 
 		ModelMap mm = new ModelMap();
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("spring", "spring mvc");
+		
 		mv.setViewName("hello");
 		User u = userService.getUserById(1);
 		System.out.println("+++++"+u.getUserName());
+		
+		System.out.println("amqpTemplate==="+amqpTemplate);
+        amqpTemplate.convertAndSend("test_queue_key","jtttttt-mqsend~~~");
+        
 		return mv;
 	}
 	
